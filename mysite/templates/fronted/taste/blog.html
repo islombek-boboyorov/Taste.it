@@ -15,20 +15,20 @@
 <section class="ftco-section bg-light">
  <div class="container">
   <div class="row">
-    {% for blog in blogs %}
+    {% for blog in page.object_list %}
     <div class="col-md-4 ftco-animate">
       <div class="blog-entry">
-        <a href="blog-single.html" class="block-20" style="background-image: url('/media/{{blog.image}}');">
+        <a href="{% url 'view' pk=blog.id %}" class="block-20" style="background-image: url('/media/{{blog.image}}');">
         </a>
         <div class="text px-4 pt-3 pb-4">
           <div class="meta">
-            <div><a href="#">{{blog.create_data}}</a></div>
-            <div><a href="#">Admin</a></div>
+            <div><a href="{% url 'view' pk=blog.id %}">{{blog.create_data}}</a></div>
+            <div><a href="{% url 'view' pk=blog.id %}">Admin</a></div>
           </div>
-          <h3 class="heading"><a href="#">{{blog.description}}</a></h3>
+          <h3 class="heading"><a href="{% url 'view' pk=blog.id %}">{{blog.description}}</a></h3>
           <p class="clearfix">
             <a href="{% url 'view' pk=blog.id %}" class="float-left read btn btn-primary">Read more</a>
-            <a href="#" class="float-right meta-chat"><span class="fa fa-comment"></span> 3</a>
+            <a href="{% url 'view' pk=blog.id %}" class="float-right meta-chat"><span class="fa fa-comment"></span> 3</a>
           </p>
         </div>
       </div>
@@ -38,18 +38,34 @@
   <div class="row no-gutters my-5">
     <div class="col text-center">
       <div class="block-27">
+        <form method="get" id="id_page_form">
+          <input type="hidden" name="page" id="id_page" value="{{ page.number }}">
+        </form>
         <ul>
-          <li><a href="#">&lt;</a></li>
-          <li class="active"><span>1</span></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">&gt;</a></li>
+          {% if page.has_previous %}
+          <li><a style="cursor: pointer;" onclick="get_page_list({{ page.previous_page_number}})">&lt;</a></li>
+          {% endif %}
+          {% for i in p.page_range %}
+            {% if page.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if page.has_next %}
+          <li><a style="cursor:pointer;" onclick="get_page_list({{ page.next_page_number }})">&gt;</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>
   </div>
 </div>
 </section>
+<script>
+  function get_page_list(page){
+  p = document.getElementById("page");
+  p.value = page;
+  document.ElementById("id_page_form").submit();
+  }
+</script>
 {% endblock %}

@@ -11,4 +11,5 @@ urlpatterns = [
     path('chef/', views.chef, name="chef"),
     path('view/<int:pk>/', views.view, name="view"),
     path('our/', views.our, name="our"),
+    path('search/', views.search, name="search")
 ]

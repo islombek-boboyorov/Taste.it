@@ -1,0 +1,38 @@
+{% extends 'fronted/base.html' %}
+{% load static %}
+{% block content%}
+<div class="col-xl-8 col-lg-6 col-md-8 main">
+				<div class="cat_title">“{{search_text}}” so'ziga doir {{search_count}} ta ma'lumot topildi</div>
+				<div class="search_box">
+					<form action="{% url 'search' %}" method="get">
+						<div class="input-group">
+							<input type="text" name="search" placeholder="Поиск">
+							<button class="btn submit"><i class="fa fa-search"></i></button>
+						</div>
+					</form>
+				</div>
+
+				<div class="news_box">
+
+						{% for news in new %}
+
+						<div class="cat_news">
+							<div class="cat_img"><img src="/media/{{news.image}}" alt=""></div>
+							<a href="{% url 'view' pk=news.id %}">{{news.title}}</a>
+							<p>{{news.description}}</p>
+						</div>
+						{% endfor %}
+						<nav aria-label="Page navigation">
+							<ul class="breadcrumbs">
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">...</a></li>
+								<li><a href="#">6</a></li>
+								<li><a href="#">7</a></li>
+								<li><a href="#">8</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+{% endblock %}

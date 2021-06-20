@@ -29,6 +29,9 @@ class Menu(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     title = models.CharField(max_length=100, blank=False, null=False)
@@ -42,7 +45,6 @@ class Product(models.Model):
 class Blog(models.Model):
     name = models.CharField(max_length=120, blank=False, null=False)
     image = models.ImageField(upload_to='image/', blank=False, null=False)
-    create_data = models.CharField(max_length=120, blank=False, null=False)
     description = models.TextField(blank=False, null=False)
     a_name = models.CharField(max_length=120, blank=False, null=False)
     a_age = models.PositiveIntegerField(blank=False, null=False, default=0)
@@ -63,3 +65,11 @@ class Our(models.Model):
     name = models.CharField(max_length=120, blank=False, null=False)
     description = models.TextField(blank=False, null=False)
     image = models.ImageField(upload_to='image/', blank=False, null=False)
+
+
+class Commit(models.Model):
+    name = models.CharField(max_length=120, blank=False, null=False)
+    email = models.EmailField(blank=False, null=False)
+    website = models.TextField(blank=False, null=False)
+    message = models.TextField(blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
